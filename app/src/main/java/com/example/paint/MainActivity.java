@@ -1,6 +1,7 @@
 package com.example.paint;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -10,47 +11,54 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import petrov.kristiyan.colorpicker.ColorPicker;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
-    private Button penButton, eraserButton, penColorButton, backgroundColorButton, clearButton, saveButton;
+    private Button saveButton, chooseColor;
     private TextView taskText;
     private DrawingView drawingView;
-    private SeekBar penSizeSeekBar, eraserSizeSeekBar;
+    ArrayList<String> colors = new ArrayList<>();
+
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeUI();
         setListeners();
+        colors.add("#000000");
+        colors.add("#808080");
+        colors.add("#C0C0C0");
+        colors.add("#FFFFFF");
+        colors.add("#FF00FF");
+        colors.add("#800080");
+        colors.add("#FF0000");
+        colors.add("#800000");
+        colors.add("#FFFF00");
+        colors.add("#808000");
+        colors.add("#00FF00");
+        colors.add("#008000");
+        colors.add("#00FFFF");
+        colors.add("#00FFFF");
+        colors.add("#008080");
+        colors.add("#0000FF");
+        colors.add("#000080");
     }
 
     private void setListeners() {
-//        penButton.setOnClickListener(this);
-//        eraserButton.setOnClickListener(this);
-//        penColorButton.setOnClickListener(this);
-//        backgroundColorButton.setOnClickListener(this);
-//        penSizeSeekBar.setOnSeekBarChangeListener(this);
-//        eraserSizeSeekBar.setOnSeekBarChangeListener(this);
-//        clearButton.setOnClickListener(this);
         taskText.setOnClickListener(this);
         saveButton.setOnClickListener(this);
+        chooseColor.setOnClickListener(this);
     }
 
     private void initializeUI() {
         drawingView = findViewById(R.id.scratch_pad);
-//        penButton = findViewById(R.id.pen_button);
-//        eraserButton = findViewById(R.id.eraser_button);
-//        penColorButton = findViewById(R.id.pen_color_button);
-//        backgroundColorButton = findViewById(R.id.background_color_button);
-//        penSizeSeekBar = findViewById(R.id.pen_size_seekbar);
-//        eraserSizeSeekBar = findViewById(R.id.eraser_size_seekbar);
-//        clearButton = findViewById(R.id.clear_button);
         saveButton = findViewById(R.id.save_button);
         taskText = findViewById(R.id.taskText);
+        chooseColor = findViewById(R.id.chooseColor);
     }
 
     @Override public void onClick(View view) {
@@ -63,53 +71,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.taskText:
                 taskText.setText(getRandomTask());
                 break;
-//            case R.id.pen_button:
-//                drawingView.initializePen();
-//                break;
-//            case R.id.eraser_button:
-//                drawingView.initializeEraser();
-//                break;
-//            case R.id.clear_button:
-//                drawingView.clear();
-//                break;
-//            case R.id.pen_color_button:
-//                final ColorPicker colorPicker = new ColorPicker(MainActivity.this, 100, 100, 100);
-//                colorPicker.setCallback(
-//                        color -> {
-//                            drawingView.setPenColor(color);
-//                            colorPicker.dismiss();
-//                        });
-//                colorPicker.show();
-//                break;
-//            case  R.id.pen_collor_button:
-//                ColorSheet().colorPicker(
-//                        colors = colors,
-//                        drawingView = { color ->
-//                                // Handle color
-//                        })
-//                        .show(supportFragmentManager)
-//                        break;
-//            case R.id.background_color_button:
-//                final ColorPicker backgroundColorPicker = new ColorPicker(MainActivity.this, 100, 100, 100);
-//                backgroundColorPicker.setCallback(
-//                        color -> {
-//                            drawingView.setBackgroundColor(color);
-//                            backgroundColorPicker.dismiss();
-//                        });
-//                backgroundColorPicker.show();
-//                break;
+            case R.id.chooseColor:
+                final ColorPicker colorPicker = new ColorPicker(MainActivity.this);
+                colorPicker.setColors(colors);
+                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    @Override
+                    public void onChooseColor(int position,int color) {
+                        // put code
+                        drawingView.setPenColor(color);
+                    }
+                    @Override
+                    public void onCancel(){
+                        // put code
+                    }
+                }).show();
             default:
                 break;
         }
     }
 
-    @Override public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//        int seekBarId = seekBar.getId();
-//        if (seekBarId == R.id.pen_size_seekbar) {
-//            drawingView.setPenSize(i);
-//        } else if (seekBarId == R.id.eraser_size_seekbar) {
-//            drawingView.setEraserSize(i);
-//        }
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
     }
 
     @Override public void onStartTrackingTouch(SeekBar seekBar) {
@@ -128,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tasks.add("Зубы вампира");
         tasks.add("Деньги пришельцев");
         tasks.add("Ключ от всех дверей");
-
         return tasks.get(rand.nextInt(5));
     }
 

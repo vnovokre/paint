@@ -9,7 +9,7 @@
   <com.example.paint.DrawingView
       android:id="@+id/scratch_pad"
       android:layout_width="wrap_content"
-      android:layout_height="651dp"
+      android:layout_height="605dp"
       android:layout_marginBottom="0dp" />
 
   <LinearLayout
@@ -32,6 +32,12 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:orientation="vertical">
+
+    <Button
+        android:id="@+id/chooseColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Изменить цвет пера" />
 
     <Button
         android:id="@+id/save_button"
