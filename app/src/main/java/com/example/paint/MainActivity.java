@@ -1,6 +1,8 @@
 package com.example.paint;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
-    private Button penButton, eraserButton, penColorButton, backgroundColorButton, clearButton;
+    private Button penButton, eraserButton, penColorButton, backgroundColorButton, clearButton, saveButton;
     private TextView taskText;
     private DrawingView drawingView;
     private SeekBar penSizeSeekBar, eraserSizeSeekBar;
@@ -33,8 +35,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        backgroundColorButton.setOnClickListener(this);
 //        penSizeSeekBar.setOnSeekBarChangeListener(this);
 //        eraserSizeSeekBar.setOnSeekBarChangeListener(this);
-        clearButton.setOnClickListener(this);
+//        clearButton.setOnClickListener(this);
         taskText.setOnClickListener(this);
+        saveButton.setOnClickListener(this);
     }
 
     private void initializeUI() {
@@ -45,12 +48,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        backgroundColorButton = findViewById(R.id.background_color_button);
 //        penSizeSeekBar = findViewById(R.id.pen_size_seekbar);
 //        eraserSizeSeekBar = findViewById(R.id.eraser_size_seekbar);
-        clearButton = findViewById(R.id.clear_button);
+//        clearButton = findViewById(R.id.clear_button);
+        saveButton = findViewById(R.id.save_button);
         taskText = findViewById(R.id.taskText);
     }
 
     @Override public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.save_button:
+                drawingView.saveImage(Environment.getExternalStorageDirectory().toString(), "test",
+                        Bitmap.CompressFormat.PNG, 100);
+                drawingView.clear();
+                break;
             case R.id.taskText:
                 taskText.setText(getRandomTask());
                 break;
@@ -60,9 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            case R.id.eraser_button:
 //                drawingView.initializeEraser();
 //                break;
-            case R.id.clear_button:
-                drawingView.clear();
-                break;
+//            case R.id.clear_button:
+//                drawingView.clear();
+//                break;
 //            case R.id.pen_color_button:
 //                final ColorPicker colorPicker = new ColorPicker(MainActivity.this, 100, 100, 100);
 //                colorPicker.setCallback(
@@ -114,11 +123,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String getRandomTask(){
         Random rand = new Random();
         List<String> tasks = new ArrayList<>();
-        tasks.add("Нарисуй рыбу");
-        tasks.add("Нарисуй подвал");
-        tasks.add("Нарисуй калитку");
-        tasks.add("Нарисуй себя");
-        tasks.add("Нарисуй абырвалг");
+        tasks.add("Подземный кит выпругнул из-под земли");
+        tasks.add("Вид с 144 этажа");
+        tasks.add("Зубы вампира");
+        tasks.add("Деньги пришельцев");
+        tasks.add("Ключ от всех дверей");
 
         return tasks.get(rand.nextInt(5));
     }
