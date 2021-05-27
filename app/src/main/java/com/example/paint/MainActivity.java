@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -18,8 +20,9 @@ import java.util.Random;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
-    private Button saveButton, chooseColor;
+    private ImageButton chooseColor;
     private TextView taskText;
+    private ImageButton saveButton;
     private DrawingView drawingView;
     ArrayList<String> colors = new ArrayList<>();
 
