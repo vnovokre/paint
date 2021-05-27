@@ -1,7 +1,6 @@
 package com.example.paint;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView taskText;
     private DrawingView drawingView;
     ArrayList<String> colors = new ArrayList<>();
-
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         colors.add("#808000");
         colors.add("#00FF00");
         colors.add("#008000");
-        colors.add("#00FFFF");
         colors.add("#00FFFF");
         colors.add("#008080");
         colors.add("#0000FF");
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override public void onClick(View view) {
         switch (view.getId()) {
             case R.id.save_button:
-                drawingView.saveImage(Environment.getExternalStorageDirectory().toString(), "test",
+                drawingView.saveImage(Environment.getExternalStorageDirectory().toString(), "pic_" + new Date(),
                         Bitmap.CompressFormat.PNG, 100);
                 drawingView.clear();
                 break;
