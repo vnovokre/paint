@@ -4,9 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -14,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 import petrov.kristiyan.colorpicker.ColorPicker;
@@ -24,7 +21,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView taskText;
     private ImageButton saveButton;
     private DrawingView drawingView;
+    ArrayList<String> tasks = new ArrayList<>();
     ArrayList<String> colors = new ArrayList<>();
+    int i = 1;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         colors.add("#008080");
         colors.add("#0000FF");
         colors.add("#000080");
+        tasks.add("Подземный кит выпругнул из-под земли");
+        tasks.add("Вид с 144 этажа");
+        tasks.add("Зубы вампира");
+        tasks.add("Деньги пришельцев");
+        tasks.add("Ключ от всех дверей");
     }
 
     private void setListeners() {
@@ -62,7 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         chooseColor = findViewById(R.id.chooseColor);
     }
 
-    @Override public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.save_button:
                 drawingView.saveImage(Environment.getExternalStorageDirectory().toString(), "pic_" + new Date(),
@@ -70,7 +75,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 drawingView.clear();
                 break;
             case R.id.taskText:
-                taskText.setText(getRandomTask());
+                taskText.setText(tasks.get(i));
+                if (i < tasks.size() - 1) {
+                    i++;
+                } else {
+                    i = 0;
+                }
                 break;
             case R.id.chooseColor:
                 final ColorPicker colorPicker = new ColorPicker(MainActivity.this);
@@ -103,16 +113,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override public void onStopTrackingTouch(SeekBar seekBar) {
         //Intentionally Empty
     }
-
-    public String getRandomTask(){
-        Random rand = new Random();
-        List<String> tasks = new ArrayList<>();
-        tasks.add("Подземный кит выпругнул из-под земли");
-        tasks.add("Вид с 144 этажа");
-        tasks.add("Зубы вампира");
-        tasks.add("Деньги пришельцев");
-        tasks.add("Ключ от всех дверей");
-        return tasks.get(rand.nextInt(5));
-    }
-
 }

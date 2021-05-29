@@ -10,7 +10,7 @@
   <com.example.paint.DrawingView
       android:id="@+id/scratch_pad"
       android:layout_width="wrap_content"
-      android:layout_height="605dp"
+      android:layout_height="630dp"
       android:layout_marginBottom="0dp" />
 
   <LinearLayout
@@ -21,9 +21,10 @@
     <TextView
         android:id="@+id/taskText"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="56dp"
         android:gravity="center"
         android:text="Подземный кит выпругнул из-под земли"
+        android:textSize="24dp"
         android:textColor="#000000" />
 
   </LinearLayout>
@@ -47,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
+        android:paddingLeft="80dp"
         app:srcCompat="@drawable/save_button" />
 
     <ImageButton
@@ -55,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
+        android:paddingRight="80dp"
         app:srcCompat="@drawable/pen" />
 
   </LinearLayout>
